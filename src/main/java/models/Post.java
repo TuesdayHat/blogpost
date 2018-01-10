@@ -1,4 +1,5 @@
 package models;
+import javax.print.DocFlavor;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,4 +48,13 @@ public class Post {
     public static Post findById(int id){
         return instances.get(id-1);
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
+
+    public void deletePost() {
+        instances.remove(id-1);
+    }
+
 }

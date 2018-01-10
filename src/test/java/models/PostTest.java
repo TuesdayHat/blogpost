@@ -10,9 +10,7 @@ import static org.junit.Assert.*;
 
 public class PostTest {
 
-    public Post setupNewPost(){
-        return new Post("Day 1: Intro");
-    }
+
 
     @Test
     public void NewPostObjectGetsCorrectlyCreated_true() throws Exception {
@@ -54,6 +52,10 @@ public class PostTest {
         assertEquals(LocalDateTime.now().getDayOfWeek(), myPost.getCreatedAt().getDayOfWeek());
     }
 
+    public Post setupNewPost(){
+        return new Post("Day 1: Intro");
+    }
+
     @Test
     public void getId_postsInstantiateWithAnID_1() throws Exception{
         Post.clearAllPosts();  // Remember, the test will fail without this line! We need to empty leftover Posts from previous tests!
@@ -63,14 +65,52 @@ public class PostTest {
 
     @Test
     public void findReturnsCorrectPost() throws Exception {
+        Post.clearAllPosts();
         Post post = setupNewPost();
         assertEquals(1, Post.findById(post.getId()).getId());
     }
 
+//    @Test
+//    public void findReturnsCorrectPostWhenMoreThanOnePostExists() throws Exception {
+//        Post post = setupNewPost();
+//        Post otherPost = new Post("How to pair successfully");
+//        assertEquals(6, Post.findById(otherPost.getId()).getId());
+//    }
     @Test
-    public void findReturnsCorrectPostWhenMoreThanOnePostExists() throws Exception {
+    public void findReturnsCorrectPost2() throws Exception {
+        Post post = setupNewPost();
+        assertEquals(4, Post.findById(post.getId()).getId());
+    }
+
+    @Test
+    public void updateChangesPostContent() throws Exception {
+        Post post = setupNewPost();
+        String formerContent = post.getContent();
+        LocalDateTime formerDate = post.getCreatedAt();
+        int formerId = post.getId();
+
+        post.update("Day 1: Intro");
+
+        assertEquals(formerId, post.getId());
+        assertEquals(formerDate, post.getCreatedAt());
+        assertEquals(formerContent, post.getContent());
+    }
+
+    @Test
+    public void deleteDeletesASpecificPost() throws Exception {
+        Post.clearAllPosts();
         Post post = setupNewPost();
         Post otherPost = new Post("How to pair successfully");
-        assertEquals(2, Post.findById(otherPost.getId()).getId());
+        post.deletePost();
+        assertEquals(1, Post.getAll().size()); //one is left
+        assertEquals(Post.getAll().get(0).getId(), 2); //the one that was deleted has the id of 2. Why do we care?
+    }
+    @Test
+    public void deleteAllPostsDeletesAllPosts() throws Exception {
+        Post post = setupNewPost();
+        Post otherPost = setupNewPost();
+
+        Post.clearAllPosts();
+        assertEquals(0, Post.getAll().size());
     }
 }
