@@ -1,0 +1,17 @@
+body {
+background-color: #969696;
+
+}
+
+.jumbotron {
+    background-image: url(images/blogging.jpg);
+    margin-top: 50px;
+}
+
+li {
+    background-color: #00b3b4;
+}
+
+a {
+    color: darkblue;
+}

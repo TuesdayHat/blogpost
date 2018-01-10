@@ -57,4 +57,13 @@ public class Post {
         instances.remove(id-1);
     }
 
+    public boolean getFirstPost() {
+        if (this.id == this.instances.size()) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
 }
