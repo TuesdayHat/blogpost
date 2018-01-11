@@ -28,8 +28,8 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get: show all posts
-        get("/", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
+        get("/posts", (req, res) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
             ArrayList<Post> posts = Post.getAll();
             model.put("posts", posts);
 
